@@ -62,3 +62,5 @@ The *Save Text* button in the **Save as Text** section provides an interpretatio
 
 Referencing
 ---
+
+To cite the offline transcription reconciler please use the DOI: [![DOI](https://zenodo.org/badge/174542045.svg)](https://zenodo.org/badge/latestdoi/174542045)
