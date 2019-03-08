@@ -11,9 +11,10 @@ var REC = (function () {
         notesRegex: /\{(.*?)\}/g, //vat par check removed from regex
         structureRegex: /[\||<](.*?)[\||>]/g,
 
-        bookRegex: /\|\s*?B\s*?(\d+?)\|/g,
-        chapterRegex: /\|\s*?K\s*?(\d+?|incipit|explicit)\|/g,
-        verseRegex: /\|\s*?V\s*?(\d+?)\|/g,
+        //The regexes have been changed to reflect the H/P/S(Homily/Paragraph/Sentence) structure used in the Homily transcriptions
+        bookRegex: /\|\s*?H\s*?(\d+?)\|/g,
+        chapterRegex: /\|\s*?P\s*?(\d+?|incipit|explicit)\|/g,
+        verseRegex: /\|\s*?S\s*?(\d+?)\|/g,
 
         folioRegex: /^\|F\s*?(\d+?)([rvab])\S{0,1}\||^\|F([rvab])\s*?(\d+?)\S{0,1}\|/i,
         pageRegex: /^\|P\s*?(\d+?)\|/i,
