@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript" charset=utf-8" src="reconciler.js"></script>
+<script type="text/javascript" charset=utf-8" src="wDiff.js"></script>
+<link rel="stylesheet" type="text/css" href="reconciler.css" />
+</head>
+<body class="active">
+<h1>ITSEE Transcription Reconciler</h1>
+<div id="header_container">
+<div class="column">
+<h3>Create New Reconciliation</h3>
+<label>Select File: </label><input type="file" id="file" name="file" onchange="javascript:REC.uploadFile()"/>
+
+<div id="list">
+<ul>
+<li><span style="background: #990033; color: white;">File 1: </span><span class="file_details" id="file1_details"></span></li>
+<li><span style="background: #009933; color: white;">File 2: </span><span class="file_details" id="file2_details"></span></li>
+</ul>
+</div>
+<span><b>Options</b></span>
+<br/>
+<label>Ignore page &amp; column layout</label><input type="checkbox" id="ignore_pagecolumn_layout" name="layout" checked="checked"/>
+<label>Ignore line breaks</label><input type="checkbox" id="ignore_linebreaks" name="linebreaks" checked="checked"/>
+<br/>
+<label>Ignore all tags [ ]</label><input type="checkbox" id="ignore_tags" name="tags"/>
+<label>Ingore parenthesis ( )</label><input type="checkbox" id="ignore_parenthesis" name="parenthesis" />
+<br/>
+<label>Treat final nu mark as nu</label><input type="checkbox" id="ignore_final_nu" name="final_nu" checked="checked"/>
+<label>Ignore punctuation</label><input type="checkbox" id="ignore_punctuation" name="punctuation"  checked="checked"/>
+<br/>
+<label>Ignore all comments</label><input type="checkbox" id="ignore_comments" name="all_comments"/>
+<label>Ignore Status Note</label><input type="checkbox" id="ignore_status_note" name="status_note" checked="checked"/>
+<br/>
+<span>Ignore comments containing only:</span>
+<label>OM</label><input type="checkbox" id="ignore_comment_om" name="comment_om" checked="checked"/>
+<label>comm</label><input type="checkbox" id="ignore_comment_comm" name="comment_comm" checked="checked"/>
+<label>lect</label><input type="checkbox" id="ignore_comment_lect" name="comment_lect" checked="checked"/>
+<br/>
+<span>Order by: </span>
+<select id="verse_order" name="verse_order"><option value="biblical">Biblical Order</option><option value="file1order">File 1 (red)</option><option value="file2order">File 2 (green)</option></select>
+<br/>
+<br/>
+<input id="compare_button" type="button" onclick="javascript:REC.readFiles()" value="Compare"/>
+</div>
+<div class="column">
+<div id="save_text">
+<h3>Save as Text</h3>
+<input type="button" onclick="javascript:REC.saveText()" value="SaveText"/>
+</div>
+
+<h3>Save Current State</h3>
+<input type="button" onclick="javascript:REC.saveReconciliation()" value="Save"/>
+<br/>
+<h3>Upload Saved Reconciliation</h3>
+<label>Upload: </label><input type="file" id="reconciliation" name="reconciliation" onchange="javascript:REC.uploadReconciliation()"/>
+</div>
+</div>
+
+<div id="results_container">
+<h2>Results</h2>
+<div id="results_summary"></div>
+<a id="structure_results_toggle" href="javascript:REC.toggle_results('structure_results', 'structure_results_toggle')"></a>
+<a id="text_results_toggle" href="javascript:REC.toggle_results('text_results', 'text_results_toggle')"></a>
+<div id="structure_results" class="results" style="display:none;"></div>
+<div id="text_results" class="results" style="display:none;"></div>
+</div>
+</body>
+</html>
