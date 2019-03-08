@@ -2,9 +2,6 @@ var REC = (function () {
 
 
     return {
-        hello: function () {
-            console.log('reconciler');
-        },
 
         file1: null,
         file2: null,
@@ -112,6 +109,9 @@ var REC = (function () {
           		text = text.replace(/\u0304/g, '\u03BD');//final nu replacement
           		text = text.replace(/¯/g, '\u03BD'); //final nu for xml
             }
+            if (opt['ignore_entities'] == true) {
+              text = text.replace(/&[^;]+?;/g, '');
+            }
             if (opt['ignore_comment_om']) {
     		      text = text.replace(/\{\s*om\s*\}/g, '');
             }
@@ -150,6 +150,7 @@ var REC = (function () {
             if (opt['ignore_tags'] == true){
     		      text = text.replace(/\[.+?\]/g, '');
             }
+
             return text;
 	       },
 
@@ -227,7 +228,6 @@ var REC = (function () {
 	      }
 	    }
 	  }
-	  console.log(verse_dict)
 	  if (working.length > 0) {
 	    if (REC.mode === 'xml') {
 	      verse_dict[key] = REC.trim(REC.clean_verse_text(working.join(''), opt));
@@ -749,7 +749,6 @@ var REC = (function () {
 	    }
 	    xhttp.open('GET', dname, false);
 	    xhttp.send('');
-	    console.log(xhttp)
 	    return xhttp.responseXML;
 	},
 
@@ -797,6 +796,7 @@ var REC = (function () {
 	        REC.options['ignore_comment_lect'] = document.getElementById('ignore_comment_lect').checked;
 	        REC.options['ignore_parenthesis'] = document.getElementById('ignore_parenthesis').checked;
 	        REC.options['ignore_status_note'] = document.getElementById('ignore_status_note').checked;
+          REC.options['ignore_entities'] = document.getElementById('ignore_entities').checked;
 
 	        reader2.onload = (function (theText) {
 	            return function (evt) {
@@ -805,19 +805,15 @@ var REC = (function () {
 	                    REC.mode = 'xml';
 	                    file1xml = REC.loadXMLString(REC.file1String);
 	                    file2xml = REC.loadXMLString(REC.file2String);
-	                    console.log(file1xml)
-	                    console.log(xsl)
 	                    if (window.ActiveXObject) {
 	                        REC.file1String = file1xml.transformNode(xsl);
 	                        REC.file2String = file2xml.transformNode(xsl);
 	                    } else {
 	                        xsltProcessor = new XSLTProcessor();
 	                        xsltProcessor.importStylesheet(xsl);
-	                        console.log(xsltProcessor)
 	                        REC.file1String = xsltProcessor.transformToFragment(file1xml, document);
 	                        REC.file2String = xsltProcessor.transformToFragment(file2xml, document);
 	                    }
-	                    console.log(REC.file1String.textContent)
 	                    REC.compareFiles(REC.file1String.textContent, REC.file2String.textContent, REC.options);
 	                } else {
 	                    REC.compareFiles(REC.file1String, REC.file2String, REC.options);
