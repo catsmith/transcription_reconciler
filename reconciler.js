@@ -765,73 +765,73 @@ var REC = (function () {
 	    return xmlDoc;
 	},
 
-	readFiles: function (ignore_structure){
-	    var reader1, reader2, body, xsl;
-	    reader1 = new FileReader();
-	    reader2 = new FileReader();
-	    body = document.getElementsByTagName('body')[0];
-	    xsl = REC.loadXMLDoc("reconciler.xsl");
+	readFiles: function(ignore_structure) {
+	  var reader1, reader2, body, xsl;
+	  reader1 = new FileReader();
+	  reader2 = new FileReader();
+	  body = document.getElementsByTagName('body')[0];
 
-	    if (REC.file1 == null || REC.file2 == null){
-	        alert('Please select two files before continuing.');
-	    } else if (REC.file1.type !== REC.file2.type) {
-	        alert('file types must match to compare.');
-	    } else {
-	        body.className = 'waiting';
-	        document.getElementById('reconciliation').value = '';
-	        document.getElementById('results_container').style.display = 'none';
-	        document.getElementById('text_results').style.display = 'none';
-	        document.getElementById('structure_results').style.display = 'none';
-	        document.getElementById('text_results_toggle').innerHTML = '';
-	        document.getElementById('structure_results_toggle').innerHTML = '';
+	  if (REC.file1 == null || REC.file2 == null) {
+	    alert('Please select two files before continuing.');
+	  } else if (REC.file1.type !== REC.file2.type) {
+	    alert('file types must match to compare.');
+	  } else {
+	    body.className = 'waiting';
+	    document.getElementById('reconciliation').value = '';
+	    document.getElementById('results_container').style.display = 'none';
+	    document.getElementById('text_results').style.display = 'none';
+	    document.getElementById('structure_results').style.display = 'none';
+	    document.getElementById('text_results_toggle').innerHTML = '';
+	    document.getElementById('structure_results_toggle').innerHTML = '';
 
-	        REC.options['ignore_pagecolumn_layout'] = document.getElementById('ignore_pagecolumn_layout').checked;
-	        REC.options['ignore_linebreaks'] = document.getElementById('ignore_linebreaks').checked;
-	        REC.options['ignore_comments'] = document.getElementById('ignore_comments').checked;
-	        REC.options['ignore_tags'] = document.getElementById('ignore_tags').checked;
-	        REC.options['ignore_final_nu'] = document.getElementById('ignore_final_nu').checked;
-	        REC.options['ignore_punctuation'] = document.getElementById('ignore_punctuation').checked;
-	        REC.options['ignore_comment_om'] = document.getElementById('ignore_comment_om').checked;
-	        REC.options['ignore_comment_comm'] = document.getElementById('ignore_comment_comm').checked;
-	        REC.options['ignore_comment_lect'] = document.getElementById('ignore_comment_lect').checked;
-	        REC.options['ignore_parenthesis'] = document.getElementById('ignore_parenthesis').checked;
-	        REC.options['ignore_status_note'] = document.getElementById('ignore_status_note').checked;
-          REC.options['ignore_entities'] = document.getElementById('ignore_entities').checked;
+	    REC.options['ignore_pagecolumn_layout'] = document.getElementById('ignore_pagecolumn_layout').checked;
+	    REC.options['ignore_linebreaks'] = document.getElementById('ignore_linebreaks').checked;
+	    REC.options['ignore_comments'] = document.getElementById('ignore_comments').checked;
+	    REC.options['ignore_tags'] = document.getElementById('ignore_tags').checked;
+	    REC.options['ignore_final_nu'] = document.getElementById('ignore_final_nu').checked;
+	    REC.options['ignore_punctuation'] = document.getElementById('ignore_punctuation').checked;
+	    REC.options['ignore_comment_om'] = document.getElementById('ignore_comment_om').checked;
+	    REC.options['ignore_comment_comm'] = document.getElementById('ignore_comment_comm').checked;
+	    REC.options['ignore_comment_lect'] = document.getElementById('ignore_comment_lect').checked;
+	    REC.options['ignore_parenthesis'] = document.getElementById('ignore_parenthesis').checked;
+	    REC.options['ignore_status_note'] = document.getElementById('ignore_status_note').checked;
+	    REC.options['ignore_entities'] = document.getElementById('ignore_entities').checked;
 
-	        reader2.onload = (function (theText) {
-	            return function (evt) {
-	        	REC.file2String = evt.target.result;
-	        	if (REC.file1.type === 'text/xml') {
-	                    REC.mode = 'xml';
-	                    file1xml = REC.loadXMLString(REC.file1String);
-	                    file2xml = REC.loadXMLString(REC.file2String);
-	                    if (window.ActiveXObject) {
-	                        REC.file1String = file1xml.transformNode(xsl);
-	                        REC.file2String = file2xml.transformNode(xsl);
-	                    } else {
-	                        xsltProcessor = new XSLTProcessor();
-	                        xsltProcessor.importStylesheet(xsl);
-	                        REC.file1String = xsltProcessor.transformToFragment(file1xml, document);
-	                        REC.file2String = xsltProcessor.transformToFragment(file2xml, document);
-	                    }
-	                    REC.compareFiles(REC.file1String.textContent, REC.file2String.textContent, REC.options);
-	                } else {
-	                    REC.compareFiles(REC.file1String, REC.file2String, REC.options);
-	                }
+	    reader2.onload = (function(theText) {
+	      return function(evt) {
+	        REC.file2String = evt.target.result;
+	        if (REC.file1.type === 'text/xml') {
+	          REC.mode = 'xml';
+            xsl = REC.loadXMLDoc("reconciler.xsl");
+	          file1xml = REC.loadXMLString(REC.file1String);
+	          file2xml = REC.loadXMLString(REC.file2String);
+	          if (window.ActiveXObject) {
+	            REC.file1String = file1xml.transformNode(xsl);
+	            REC.file2String = file2xml.transformNode(xsl);
+	          } else {
+	            xsltProcessor = new XSLTProcessor();
+	            xsltProcessor.importStylesheet(xsl);
+	            REC.file1String = xsltProcessor.transformToFragment(file1xml, document);
+	            REC.file2String = xsltProcessor.transformToFragment(file2xml, document);
+	          }
+	          REC.compareFiles(REC.file1String.textContent, REC.file2String.textContent, REC.options);
+	        } else {
+	          REC.compareFiles(REC.file1String, REC.file2String, REC.options);
+	        }
 
-	                body.className = 'active';
-	                };
-	            } (REC.file2String));
+	        body.className = 'active';
+	      };
+	    }(REC.file2String));
 
-	        reader1.onload = (function (theText) {
-	            return function (evt) {
-	                REC.file1String = evt.target.result;
-	                reader2.readAsText(REC.file2);
-	                };
-	            } (REC.file1String));
+	    reader1.onload = (function(theText) {
+	      return function(evt) {
+	        REC.file1String = evt.target.result;
+	        reader2.readAsText(REC.file2);
+	      };
+	    }(REC.file1String));
 
-	        reader1.readAsText(REC.file1);
-	    }
+	    reader1.readAsText(REC.file1);
+	  }
 	},
 
 
