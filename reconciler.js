@@ -126,7 +126,7 @@ var REC = (function () {
     		      text = text.replace(/\)/g, '');
             }
             if (opt['ignore_punctuation']) {
-          		text = text.replace(/\u0387/g, ''); //ano teleia
+          		text = text.replace(/\u0387/g, '');//ano teleia
           		text = text.replace(/\u00B7/g, '');//middle dot
           		text = text.replace(/\u037E/g, '');//greek question mark
           		text = text.replace(/˙/g, '');
@@ -766,9 +766,11 @@ var REC = (function () {
 	},
 
 	readFiles: function(ignore_structure) {
-	  var reader1, reader2, body, xsl;
+	  var reader1, reader2, reader3, body, xsl;
 	  reader1 = new FileReader();
 	  reader2 = new FileReader();
+    reader3 = new FileReader();
+
 	  body = document.getElementsByTagName('body')[0];
 
 	  if (REC.file1 == null || REC.file2 == null) {
@@ -797,30 +799,40 @@ var REC = (function () {
 	    REC.options['ignore_status_note'] = document.getElementById('ignore_status_note').checked;
 	    REC.options['ignore_entities'] = document.getElementById('ignore_entities').checked;
 
+      reader3.onload = (function(theText) {
+        return function(evt) {
+          REC.file3String = evt.target.result;
+          file1xml = REC.loadXMLString(REC.file1String);
+          file2xml = REC.loadXMLString(REC.file2String);
+
+          xsl = REC.loadXMLString(REC.file3String);
+          if (window.ActiveXObject) {
+            REC.file1String = file1xml.transformNode(xsl);
+            REC.file2String = file2xml.transformNode(xsl);
+          } else {
+            xsltProcessor = new XSLTProcessor();
+            xsltProcessor.importStylesheet(xsl);
+            REC.file1String = xsltProcessor.transformToFragment(file1xml, document);
+            REC.file2String = xsltProcessor.transformToFragment(file2xml, document);
+          }
+          REC.compareFiles(REC.file1String.textContent, REC.file2String.textContent, REC.options);
+          body.className = 'active';
+        };
+      }(REC.file3String));
+
 	    reader2.onload = (function(theText) {
 	      return function(evt) {
+          var xslblob
 	        REC.file2String = evt.target.result;
 	        if (REC.file1.type === 'text/xml') {
 	          REC.mode = 'xml';
-            xsl = REC.loadXMLDoc("reconciler.xsl");
-	          file1xml = REC.loadXMLString(REC.file1String);
-	          file2xml = REC.loadXMLString(REC.file2String);
-	          if (window.ActiveXObject) {
-	            REC.file1String = file1xml.transformNode(xsl);
-	            REC.file2String = file2xml.transformNode(xsl);
-	          } else {
-	            xsltProcessor = new XSLTProcessor();
-	            xsltProcessor.importStylesheet(xsl);
-	            REC.file1String = xsltProcessor.transformToFragment(file1xml, document);
-	            REC.file2String = xsltProcessor.transformToFragment(file2xml, document);
-	          }
-	          REC.compareFiles(REC.file1String.textContent, REC.file2String.textContent, REC.options);
+            xslblob = new Blob(XSL, {'type': 'text/xml'});
+            reader3.readAsText(xslblob);
 	        } else {
 	          REC.compareFiles(REC.file1String, REC.file2String, REC.options);
+            body.className = 'active';
 	        }
-
-	        body.className = 'active';
-	      };
+        };
 	    }(REC.file2String));
 
 	    reader1.onload = (function(theText) {
