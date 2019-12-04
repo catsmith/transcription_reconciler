@@ -16,9 +16,9 @@ var REC = (function () {
         verseRegex: /\|\s*?V\s*?(\d+?)\|/g,
 
         folioRegex: /^\|F\s*?(\d+?)([rvab])\S{0,1}\||^\|F([rvab])\s*?(\d+?)\S{0,1}\|/i,
-        pageRegex: /^\|P\s*?(\d+?)\|/i,
-        columnRegex: /^\|C\s*?(\d+?)\|/i,
-        linebreakRegex: /^\|L\s*?\d*\|/i,
+        pageRegex: /^\|P\s*?(\S+?)\|/i,
+        columnRegex: /^\|C\s*?(\S+?)\|/i,
+        linebreakRegex: /^\|L\s*?\S*?\|/i,
 
         file1Background: '#990033;',
         file1TextColour: 'white;',
