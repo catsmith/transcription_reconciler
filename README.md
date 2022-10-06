@@ -24,7 +24,7 @@ User Guide
 ---
 
 ### Starting a new reconciliation
-To start a new reconciliation in the **Create New Reconciliation** section use the browse button to select the first file you want to compare. The selected file will appear next to the *File 1* label. Repeat the prcess to select the second file you want to compare. This file will appear next to the *File 2* label. If you make an mistake with the file selection the red delete button to the right of the filename can be used to remove the file and a replacement can be selected. The files to be compared should be of the same transcription type (plain text or XML).
+To start a new reconciliation in the **Create New Reconciliation** section use the browse button to select the first file you want to compare. The selected file will appear next to the *File 1* label. Repeat the process to select the second file you want to compare. This file will appear next to the *File 2* label. If you make an mistake with the file selection the red delete button to the right of the filename can be used to remove the file and a replacement can be selected. The files to be compared should be of the same transcription type (plain text or XML).
 
 When the two files have been selected use the **options** section to ignore any features you do not want to show up as differences and select whether you want the results to be displayed in Biblical order or the other of one of the files (using Biblical order can be useful when dealing with lectionaries). Some of the options do not work when using XML files.
 
@@ -34,7 +34,7 @@ When the options have been selected click the *Compare* button to start the reco
 
 When the comparison is completed a summary will display below the *Compare* button.
 
-The summary will tell you which files have been compared and each is highlighted in a colour. These are the colours that are used to represent each file in the comparions display. The summary says how many differences exist in the structure (the order of the verses) and the text within the verses themselves.
+The summary will tell you which files have been compared and each is highlighted in a colour. These are the colours that are used to represent each file in the comparisons display. The summary says how many differences exist in the structure (the order of the verses) and the text within the verses themselves.
 
 If the summary says that the files have different structures then it is probably best to fix this first and rerun the reconciliation. If there are differences in the structures you can see the details by clicking on the *Show Structure Results* link.
 
@@ -45,7 +45,7 @@ The summary will also tell you how many of the Biblical verses have differences 
 
 To save the current state of a reconciliation use the *save* button in the **Save Current State** in the right hand column of the top section of the page. Due to security risks the browser cannot access your computers file system directly so a pop-up window will appear with the text to be saved. Copy all of the text in this window, ideally you should use the select all feature to ensure all of the text is copied. Paste the text into a file and save to your computer with a ```.txt``` extension.
 
-This will save the reconcilation exactly as it appears on the screen including any comments and checks you have made in the interface.
+This will save the reconciliation exactly as it appears on the screen including any comments and checks you have made in the interface.
 
 ### Loading a saved reconciliation
 

@@ -128,13 +128,20 @@
 	<xsl:template match="tei:lb">
 		<xsl:text>|L </xsl:text>
 		<xsl:value-of select="@n"/>
-		<xsl:text>|</xsl:text>
+		<xsl:text>|\n</xsl:text>
+		<br/>
 	</xsl:template>
 	
 	<xsl:template match="tei:cb">
 		<xsl:text>|C </xsl:text>
 		<xsl:value-of select="@n"/>
-		<xsl:text>|</xsl:text>
+		<xsl:text>|\n</xsl:text>
+	</xsl:template>
+
+	<xsl:template match="tei:pb">
+		<xsl:text>|P </xsl:text>
+		<xsl:value-of select="@xml:id"/>
+		<xsl:text>|\n</xsl:text>
 	</xsl:template>
 	
 	<xsl:template match="tei:ex">
