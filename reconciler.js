@@ -11,7 +11,7 @@ var REC = (function () {
         notesRegex: /\{(.*?)\}/g, //vat par check removed from regex
         structureRegex: /[\||<](.*?)[\||>]/g,
 
-        bookRegex: /\|\s*?B\s*?(\d+?)\|/g,
+        bookRegex: /\|\s*?B\s*?([^|]+?)\|/g,
         chapterRegex: /\|\s*?K\s*?(\d+?|incipit|explicit)\|/g,
         verseRegex: /\|\s*?V\s*?(\d+?)\|/g,
 

@@ -86,12 +86,51 @@
 	</xsl:template>
 	
 	<xsl:template match="tei:div[@type='book']">
-		<xsl:text>&lt;B </xsl:text><xsl:value-of select="@n"/><xsl:text>&gt; </xsl:text>
+		<xsl:choose>
+			<xsl:when test="not(starts-with(./@n,'B'))">
+				<xsl:text>&lt;B </xsl:text><xsl:value-of select="@n"/><xsl:text>&gt; </xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:choose>
+					<xsl:when test="@n='B06'">
+						<xsl:text>&lt;B Rom&gt; </xsl:text>
+					</xsl:when>
+					<xsl:when test="@n='B07'">
+						<xsl:text>&lt;B 1Cor&gt; </xsl:text>
+					</xsl:when>
+					<xsl:when test="@n='B08'">
+						<xsl:text>&lt;B 2Cor&gt; </xsl:text>
+					</xsl:when>
+					<xsl:when test="@n='B09'">
+						<xsl:text>&lt;B Gal&gt; </xsl:text>
+					</xsl:when>
+					<xsl:when test="@n='B10'">
+						<xsl:text>&lt;B Eph&gt; </xsl:text>
+					</xsl:when>
+					<xsl:when test="@n='B11'">
+						<xsl:text>&lt;B Phil&gt; </xsl:text>
+					</xsl:when>
+					<xsl:when test="@n='B12'">
+						<xsl:text>&lt;B Col&gt; </xsl:text>
+					</xsl:when>
+					<xsl:when test="@n='B18'">
+						<xsl:text>&lt;B Phlm&gt; </xsl:text>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:apply-templates/>
 	</xsl:template>
 	
 	<xsl:template match="tei:div[@type='chapter']">
-		<xsl:text>&lt;K </xsl:text><xsl:value-of select="substring-after(./@n, 'K')"/><xsl:text>&gt; </xsl:text>
+		<xsl:choose>
+			<xsl:when test="contains(./@n, 'K')">
+				<xsl:text>&lt;K </xsl:text><xsl:value-of select="substring-after(./@n, 'K')"/><xsl:text>&gt; </xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>&lt;K </xsl:text><xsl:value-of select="substring-after(./@n, '.')"/><xsl:text>&gt; </xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:apply-templates/>
     </xsl:template>
 	
@@ -115,7 +154,14 @@
 		<xsl:text>&lt;V </xsl:text>
 		<xsl:choose>
 			<xsl:when test="@n">
-				<xsl:value-of select="substring-after(./@n, 'V')"/>
+				<xsl:choose>
+					<xsl:when test="contains(./@n, 'V')">
+						<xsl:value-of select="substring-after(./@n, 'V')"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="substring-after(substring-after(./@n, '.'), '.')"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:text>0</xsl:text>
