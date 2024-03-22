@@ -1,0 +1,26 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Transcription Reconciler
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Catherine
+    family-names: Smith
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.2587973
+repository-code: >-
+  https://github.com/itsee-birmingham/transcription_reconciler
+abstract: >-
+  This offline transcription editor is designed to highlight
+  the differences between two transcriptions of New
+  Testament manuscripts. It works with plain text
+  transcriptions and XML transcriptions that follow the
+  IGNTP specifications. It is only designed to compare
+  differences within a biblical verse although verse order
+  is compared and reported separately.
+license: MIT
